@@ -7,7 +7,9 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: rag
     ports:
-      - "5432:5432"
+      # Porta do host lida de POSTGRES_PORT (o compose lê o .env automaticamente);
+      # fallback 5432. A porta interna do container permanece 5432.
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
